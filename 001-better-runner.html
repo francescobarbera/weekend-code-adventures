@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Running with an engineer's precision</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="header">
+            <h3>October 10, 2024</h3>
+            <h1>Running with an engineer's precision</h1>
+        </div>
+        <div class="content-container">
+            <div class="content">
+                <h2>Crafting a better runner with TypeScript</h2>
+                <p>
+                    As someone who finds inspiration in the rhythmic pounding of
+                    feet against the pavement and the rhythm of the fingers on a
+                    keyboard (I am addicted to ASMR coding streamers on Twitch),
+                    I often seek ways to look at these two activities with the
+                    same eyes. Running and software development might seem
+                    worlds apart, but they share a common thread: the pursuit of
+                    improvement. This quest led me to create
+                    <strong>Better runner</strong>, a straightforward Node.js
+                    application designed to calculate and display essential
+                    information about my runs and other activities I use to
+                    improve my shape.
+                    <a
+                        href="https://github.com/francescobarbera/better-runner"
+                        target="_blank"
+                        >Here</a
+                    >
+                    is the public repository.
+                </p>
+                <h2>The motivation behind Better runner</h2>
+                <p>
+                    Like many runners, I enjoy tracking my progress. Apps like
+                    Strava offer a wealth of features, providing detailed
+                    analytics and a vibrant community. However, I found that
+                    while these platforms are comprehensive, they can be
+                    somewhat restrictive when it comes to extracting and
+                    analyzing specific data points that matter most to me.
+                    Furthermore, I am a fan of the "less is more" approach and I
+                    wanted a simple tool that would allow me to track my
+                    progress without any unnecessary features.
+                </p>
+                <p>
+                    For instance, Strava's segmentation feature is excellent for
+                    predefined routes, but it doesn't allow for easy comparison
+                    of my preferred splits unless they are already established
+                    segments. I wanted a simple tool that focuses on the metrics
+                    I care about most—total distance, duration, elevation gain,
+                    and the ability to analyze these over time without
+                    unnecessary complexity.
+                </p>
+                <p>
+                    Another reason for creating
+                    <strong>Better runner</strong> was that I am a supporter of
+                    local-first software and I wanted to have a tool that would
+                    allow me to store my data locally and not in the cloud. I
+                    wanted to have full control over my data and not to be
+                    dependent on any third-party service.
+                </p>
+                <h2>Embracing manual data entry</h2>
+                <p>
+                    One might argue that manual data entry is a step backward in
+                    our age of automation. However, I've found value in the
+                    process of inputting my run data by hand. Spending an hour
+                    (or more) running and then taking a couple of minutes to
+                    record the details isn't just a chore; it's an opportunity
+                    for reflection.
+                </p>
+                <p>
+                    Manual entry ensures that I pay closer attention to my data,
+                    leading to a deeper understanding of my performance. It
+                    forces me to engage with each run individually, noticing
+                    patterns and insights I might otherwise overlook if the data
+                    were automatically logged and processed.
+                </p>
+                <p>
+                    The two obvious downsides of manual typing are the
+                    possibilities to make mistakes and the difficulty of filling
+                    a JavaScript object on a mobile phone. These are two side
+                    effects that (for now) I am willing to accept in exchange
+                    for the benefits of manual data entry.
+                </p>
+                <h2>Why TypeScript?</h2>
+                <p>
+                    As a developer, I spend most of my time in a text editor (I
+                    recommend
+                    <a href="https://zed.dev" target="_blank">Zed</a>). The
+                    simplicity and speed of typing out code and data far
+                    outweigh the benefits of more visual tools for me.
+                    TypeScript, in particular, offers a robust environment that
+                    helps me avoid common mistakes through its strong typing
+                    system and on-the-fly checks.
+                </p>
+                <p>
+                    By using TypeScript for <strong>Better runner</strong>, I
+                    gain a clearer understanding of the data structures I'm
+                    working with. It enhances my coding efficiency and reduces
+                    the likelihood of errors that could skew my running data
+                    analysis.
+                </p>
+                <h2>Storing data without a database</h2>
+                <p>
+                    Given the relatively small amount of data I expect to
+                    handle, I've opted not to use a traditional database.
+                    Instead, I store my run data directly in a TypeScript file.
+                    This approach simplifies the process, allowing me to quickly
+                    add, remove, or modify data without the overhead of database
+                    management.
+                </p>
+                <p>
+                    Here's an example of how I store the data (it is only a
+                    partial view, for a complete view, you can check out the
+                    repository
+                    <a
+                        href="https://github.com/francescobarbera/better-runner"
+                        target="_blank"
+                        >here</a
+                    >:
+                </p>
+                <pre><code>
+type Activity = {
+  date: string;
+  distanceKm: number;
+  durationSeconds: number;
+  averageHeartRate: number;
+  withHeartRateMonitor: boolean;
+  activeKilocalories: number;
+  averagePowerW: number;
+  comment: string;
+  externalLinks: ExternalLink[];
+};
+
+type Run = (
+  | {
+      type: "SLOW_RUN" | "RACE" | "BY_FEEL";
+    }
+  | {
+      type: "FARTLEK";
+      customSplits: Split[];
+    }
+) & {
+  averagePaceMinutesPerKm: number;
+  elevationGainMeters: number;
+  averageCadence: number;
+} & Activity;
+
+const run: Run[] = [
+  {
+    type: "SLOW_RUN",
+    date: "2024-09-17",
+    distanceKm: 9.5,
+    durationSeconds: 52 * 60 + 4,
+    averagePaceMinutesPerKm: 5.29,
+    averageHeartRate: 141,
+    averageCadence: 177,
+    averagePowerW: 205,
+    elevationGainMeters: 57,
+    withHeartRateMonitor: true,
+    activeKilocalories: 562,
+    comment: "A good slow run with some music",
+    externalLinks: [
+      {
+        platform: "STRAVA",
+        url: "https://www.strava.com/activities/strava_id",
+      },
+    ],
+    // more runs
+  },
+];
+            </code></pre>
+                <p>
+                    This method keeps everything in one place and leverages
+                    TypeScript's type-checking to ensure data integrity.
+                </p>
+                <h2>Building the application</h2>
+                <p>
+                    <strong>Better runner</strong> is built with simplicity in
+                    mind. The core functionality revolves around reading the run
+                    data and calculating cumulative statistics. Here's a
+                    high-level overview of the application's structure:
+                </p>
+                <ol>
+                    <li>
+                        <strong>Data input</strong>: Run data is stored in a
+                        TypeScript file as shown above.
+                    </li>
+                    <li>
+                        <strong>Data processing</strong>: The application reads
+                        the data and performs calculations such as total
+                        distance covered, average pace, total elevation gain,
+                        and more.
+                    </li>
+                    <li>
+                        <strong>Data display</strong>: Results are displayed in
+                        the console.
+                    </li>
+                </ol>
+                <h3>Sample output</h3>
+                <p>When the application runs, it generates output like:</p>
+                <pre><code>
+┌──────────────────────────┬────────┐
+│ (index)                  │ Values │
+├──────────────────────────┼────────┤
+│ totalKm                  │ 70.62  │
+│ totalDurationSeconds     │ 23927  │
+│ averageDurationSeconds   │ 2392   │
+│ totalElevationGainMeters │ 1815   │
+└──────────────────────────┴────────┘
+            </code></pre>
+                <p>
+                    I know I can do better. But this output only provides a
+                    quick snapshot of my running performance over time and can
+                    be easily improved by adding more data and better
+                    presentation.
+                </p>
+                <h2>Advantages of this approach</h2>
+                <ul>
+                    <li>
+                        <strong>Customization</strong>: I have complete control
+                        over what data is collected and how it's analyzed.
+                    </li>
+                    <li>
+                        <strong>Flexibility</strong>: adding new metrics or
+                        modifying existing ones is straightforward.
+                    </li>
+                    <li>
+                        <strong>No Dependencies</strong>: without relying on
+                        external services or databases, the application remains
+                        lightweight and easy to maintain.
+                    </li>
+                    <li>
+                        <strong>Learning Opportunity</strong>: building
+                        <strong>Better runner</strong> hasn't necessarily
+                        enhanced my understanding of TypeScript (in the end, it
+                        is a small application), but it will allow me to
+                        experiment extensively with other technologies. Since I
+                        use it daily, I can observe the improvements
+                        continuously.
+                    </li>
+                </ul>
+                <h2>Challenges faced</h2>
+                <p>
+                    While the project has been rewarding, it hasn't been without
+                    challenges:
+                </p>
+                <ul>
+                    <li>
+                        <strong>Data accuracy</strong>: manual data entry can
+                        lead to errors.
+                    </li>
+                    <li>
+                        <strong>Scalability</strong>: storing data in a
+                        TypeScript file is practical for a small dataset, but it
+                        may become unmanageable as the data grows. I may
+                        consider integrating a lightweight database in the
+                        future if needed.
+                    </li>
+                    <li>
+                        <strong>Feature limitations</strong>: the application
+                        lacks the advanced features of commercial apps, such as
+                        GPS mapping and community interaction (I still use
+                        Strava for both of them). However, for my purposes,
+                        these aren't essential.
+                    </li>
+                </ul>
+                <h2>Future plans</h2>
+                <p>
+                    I'm considering adding the following features to
+                    <strong>Better runner</strong>:
+                </p>
+                <ul>
+                    <li>
+                        <strong>Graphical data visualization</strong>:
+                        incorporating charts to visualize progress over time.
+                    </li>
+                    <li>
+                        <strong>Goal tracking</strong>: setting and monitoring
+                        goals for distance, pace, or elevation gain.
+                    </li>
+                    <li>
+                        <strong>Integration with devices</strong>: since manual
+                        entry has some benefits, I believe in the long term they
+                        will not overcome the downsides, so the idea is to
+                        explore options to import data from running watches or
+                        smartphones to reduce manual entry while retaining
+                        control over the data.
+                    </li>
+                </ul>
+                <h2>Conclusion</h2>
+                <p>
+                    Building <strong>Better runner</strong> has been an exercise
+                    in combining my love for running with my passion for
+                    software development. It serves as a personalized tool that
+                    meets my specific needs without unnecessary complexity. By
+                    embracing manual data entry and leveraging TypeScript, I've
+                    created an application that not only tracks my runs but also
+                    enhances my understanding of my performance.
+                </p>
+                <p>
+                    By focusing on a local-first approach, I ensure that my data
+                    remains private and under my control, free from reliance on
+                    third-party services. It's about finding what works best for
+                    me and enjoying the process of creation along the way.
+                </p>
+                <p>
+                    This project reminds me that sometimes, simplicity and
+                    control are more valuable than a plethora of features.
+                </p>
+                <hr />
+                <p>
+                    Thank you for taking the time to read about
+                    <strong>Better runner</strong>. If you're interested in the
+                    project or have ideas for improvement, feel free to reach
+                    out or contribute to the
+                    <a
+                        href="https://github.com/francescobarbera/better-runner"
+                        target="_blank"
+                        >GitHub repository</a
+                    >.
+                </p>
+            </div>
+        </div>
+    </body>
+</html>
