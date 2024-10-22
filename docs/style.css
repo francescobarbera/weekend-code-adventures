@@ -34,19 +34,13 @@ header > h3 {
 }
 a {
     color: #0077cc;
+    text-decoration: none;
+}
+a:hover {
     text-decoration: underline;
 }
 img {
     border-radius: 5px;
-}
-hr {
-    height: 3px;
-    background: #f76c6c;
-    border: 0;
-    margin: 2em 0;
-}
-li {
-    margin-bottom: 0.8em;
 }
 pre {
     background-color: #24395e;
@@ -62,4 +56,17 @@ code {
 footer {
     display: flex;
     justify-content: center;
+}
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+hr {
+    height: 3px;
+    background: #f76c6c;
+    border: 0;
+    margin: 2em 0;
+}
+li {
+    margin-bottom: 0.8em;
 }
