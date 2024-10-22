@@ -15,13 +15,13 @@ h1 {
     font-size: 3em;
     font-weight: bold;
 }
-.header {
+header {
     background-color: #f76c6c;
     color: #fff;
     padding: 20px;
     text-align: center;
 }
-.header > h3 {
+header > h3 {
     color: #fff;
 }
 .content-container {
@@ -58,4 +58,8 @@ pre {
 code {
     font-family: "Courier New", Courier, monospace;
     font-size: 0.9em;
+}
+footer {
+    display: flex;
+    justify-content: center;
 }
