@@ -3,7 +3,7 @@ body {
     line-height: 1.4;
     margin: 0;
     background-color: #ebe9e1;
-    font-size: 1.4em;
+    font-size: 4em;
     text-align: left;
 }
 h2,
@@ -12,7 +12,6 @@ h3 {
 }
 h1 {
     color: #fff;
-    font-size: 3em;
     font-weight: bold;
 }
 header {
@@ -25,12 +24,7 @@ header > h3 {
     color: #fff;
 }
 main {
-    display: flex;
-    justify-content: center;
     padding: 20px;
-}
-.content {
-    max-width: 800px;
 }
 a {
     color: #0077cc;
@@ -51,11 +45,13 @@ pre {
 }
 code {
     font-family: "Courier New", Courier, monospace;
-    font-size: 0.9em;
+    font-size: 0.8em;
 }
 footer {
-    display: flex;
-    justify-content: center;
+    padding: 20px;
+}
+ol {
+    margin-left: 40px;
 }
 ul {
     list-style-type: none;
@@ -69,4 +65,34 @@ hr {
 }
 li {
     margin-bottom: 0.8em;
+}
+
+@media only screen and (min-width: 992px) {
+    body {
+        font-size: 1.4em;
+    }
+    h2,
+    h3 {
+        font-size: 1.6em;
+    }
+    h1 {
+        font-size: 3em;
+    }
+    header p {
+        font-size: 1.2em;
+    }
+    main {
+        display: flex;
+        justify-content: center;
+    }
+    .content {
+        max-width: 800px;
+    }
+    footer {
+        display: flex;
+        justify-content: center;
+    }
+    ol {
+        margin-left: 0px;
+    }
 }
