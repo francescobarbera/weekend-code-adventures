@@ -50,10 +50,6 @@ code {
 footer {
     padding: 0 20px;
 }
-ul {
-    list-style-type: none;
-    padding: 0;
-}
 hr {
     height: 3px;
     background: #f76c6c;
@@ -63,10 +59,16 @@ hr {
 li {
     margin-bottom: 0.8em;
 }
+.welcome-title {
+    display: none;
+}
 
 @media only screen and (min-width: 600px) and (max-width: 1024px) {
     body {
         font-size: 1.5em;
+    }
+    .welcome-title {
+        display: block;
     }
 }
 
@@ -97,5 +99,8 @@ li {
     }
     ol {
         margin-left: 0px;
+    }
+    .welcome-title {
+        display: block;
     }
 }
