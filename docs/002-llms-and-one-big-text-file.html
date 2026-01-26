@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>LLMs and one big text file</title>
+        <link rel="stylesheet" href="style.css" />
+        <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    </head>
+    <body>
+        <header>
+            <p>January 26, 2026</p>
+            <h1>LLMs and one big text file</h1>
+        </header>
+        <main>
+            <section class="content">
+                <h2>Apps, apps, and more apps</h2>
+                <p>
+                    They have a shiny design, they have attractive colours, they
+                    make you feel like a better person, the CEO of a great
+                    startup. That’s what apps do to me (and, I think, to many
+                    people). You need them to organise your life and achieve
+                    your goals. You need them for every single aspect of your
+                    life: from tracking your sleep to brushing your teeth.
+                </p>
+                <h2>Going for simplicity</h2>
+                <p>
+                    I am at a point in my life where I do not want to be
+                    stressed by constant (and often useless) notifications. I do
+                    not want to be distracted by my watch asking me if I am
+                    riding a bike. I probably already know that I am.
+                </p>
+                <p>
+                    One of the key aspects I want to improve is daily
+                    organisation. I have three kids who need to be picked up
+                    from school or kindergarten, so every movement must be well
+                    organised. I discovered online the “one big text file”
+                    pattern:
+                </p>
+                <ul>
+                    <li>
+                        <a
+                            href="https://dkphhh.me/reading/2024-08-07_00-08-00"
+                            target="_blank"
+                            >My One Big Text File</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="https://www.leonardobighi.com/how-i-organize-my-life-in-plain-text"
+                            target="_blank"
+                            >How I Organize My Life in Plain Text</a
+                        >
+                    </li>
+                </ul>
+                <p>
+                    I tried it for a couple of weeks, improving and adapting the
+                    structure based on what I saw working well and what could be
+                    improved. I put almost everything in the file. Here is an
+                    example:
+                </p>
+                <pre><code># 2026-01-26
+**07:00** wake up and prepare for the new week.
+**09:30** sprint planning meeting.
+**11:30** sync for the new feature.
+**12:00** 10k slow run.
+**13:00** lunch.
+**13:30** start working on the new feature. [TODO]
+**17:30** wrap up the day.
+**21:00** watching the big match.</code></pre>
+                <p>
+                    The format is quite simple: a big markdown file with an easy
+                    structure. It worked quite well. I usually write the next
+                    day’s plan the day before, so I already know what I have to
+                    do and where the friction points might be.
+                </p>
+                <h2>I was happy with my file, but maybe…</h2>
+                <p>
+                    The big file is really handy. I can search for any activity
+                    I have done in the past and immediately get a result. There
+                    is no need to jump between different apps for different
+                    kinds of information. Everything is in one place:
+                    appointments, notes, todos.
+                </p>
+                <p>
+                    Postponing an activity is just moving a line. Adding notes
+                    means adding a line and starting to write.
+                </p>
+                <p>
+                    What's difficult with the large file is to extract
+                    meaningful information: you have to go through many lines
+                    looking for specific words and then summarise what you
+                    found. But since a large part of my workflow already
+                    revolves around LLMs (I am joking… mostly), why not add a
+                    bit of magic? That is how <strong>Ambrogio</strong> was
+                    born.
+                </p>
+                <p>
+                    <strong>Ambrogio</strong> takes its name from the Ferrero
+                    Rocher commercials: the discreet, always-present butler who
+                    anticipates needs and quietly solves problems. It is not
+                    about replacing you, but about helping you.
+                </p>
+                <p>
+                    <strong>Ambrogio</strong> is powered by an LLM. LLMs are
+                    very good at working with text files. You just need to teach
+                    them the structure, and then you can start asking questions
+                    about what you have to do tomorrow, which tasks you have not
+                    finished yet, and so on.
+                </p>
+                <h2>Let’s go technical</h2>
+                <p>
+                    The technical choices behind Ambrogio follow the same
+                    principle as the organiser file: keep things simple, local
+                    (if you can use a local LLM), and under control. The
+                    implementation reflects that more than any architectural
+                    ambition. I wrote the app in <strong>Rust</strong>. I
+                    started using it a couple of months ago and I am still not
+                    proficient with it, so I rely heavily on AI (<strong
+                        >Claude Code</strong
+                    >) to help me write the code. You can see Claude involved in
+                    almost every commit.
+                </p>
+                <p>
+                    I created a <code>CLAUDE.md</code> file that I reuse across
+                    many projects. After several iterations, I found a way to
+                    guide the LLM towards the structure I have in mind, and it
+                    works quite well.
+                </p>
+                <p>
+                    I run the app from the terminal. It is configured to use my
+                    daily organiser file. When I start it, I can ask different
+                    kinds of questions. In these early days, I mostly use it to
+                    summarise notes from the past few weeks or to prepare for
+                    specific meetings. So far, I am quite happy with how it
+                    works.
+                </p>
+                <p>
+                    <strong>Ambrogio</strong> works with an LLM of your choice.
+                    It sends the content of your big text file to the model and
+                    lets you ask questions. That’s it.
+                </p>
+                <h2>Little tools with a bright future</h2>
+                <p>
+                    I started this post complaining about apps. Ambrogio is not
+                    an alternative app, but a way out of that pattern: no
+                    dashboards, no notifications, just a tool that answers when
+                    I ask. My initial idea was to start from small sources of
+                    friction and try to solve them in a couple of hours. Thanks
+                    to the power of AI, and the experience I have built using
+                    it, I am able to produce something reasonably useful with a
+                    few well-crafted prompts.
+                </p>
+                <p>
+                    There is plenty of room for improvement: structured outputs
+                    for todos, colours, better formatting.
+                    <strong>Kaizen</strong> is the way. Small improvements every
+                    time I notice something that can be done better.
+                </p>
+                <hr />
+                <p>
+                    Thank you for taking the time to read about
+                    <strong>Ambrogio</strong>. If you are interested in the
+                    project or have ideas for improvement, feel free to reach
+                    out or contribute to the
+                    <a
+                        href="https://github.com/francescobarbera/ambrogio"
+                        target="_blank"
+                        >GitHub repository</a
+                    >.
+                </p>
+            </section>
+        </main>
+        <footer>
+            <p><a href="index.html">Home</a></p>
+        </footer>
+    </body>
+</html>
