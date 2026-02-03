@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>LLMs as non-deterministic compilers</title>
+        <link rel="stylesheet" href="style.css" />
+        <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    </head>
+    <body>
+        <header>
+            <p>February 3, 2026</p>
+            <h1>LLMs as non-deterministic compilers</h1>
+        </header>
+        <main>
+            <section class="content">
+                <h2>I stopped writing code</h2>
+                <p>
+                    I stopped writing code. I use the models to implement all
+                    the features, make most of the changes. I review them and
+                    from time to time make small changes. It works pretty well.
+                    I am faster and my code (my?) is better. But I feel strange.
+                    It is another kind of work, it is not the usual developer
+                    work. Sometimes I think I am cheating.
+                </p>
+                <p>
+                    I needed a way to allow myself to continue working like
+                    this, because I like it and I am much more productive. I
+                    started researching and I found
+                    <a
+                        target="_blank"
+                        href="https://lorentzvedeler.com/2025/08/13/Automatic-programming-2.0"
+                    >
+                        this post</a
+                    >
+                    from Lorentz Vedeler about automatic programming. The
+                    interesting part is the concept of LLMs as non-deterministic
+                    compilers. It is something I already thought about, and it
+                    is pretty reasonable. It gives me a framework: prompts are
+                    the source, tests are the spec, and the output is a
+                    probabilistic compilation.
+                </p>
+                <h2>Compiler++</h2>
+                <p>
+                    If I accept that metaphor, vibe-coding becomes regular
+                    development with a language whose syntax is natural
+                    language. You still have to learn a little bit of syntax: if
+                    you are using Java you need to know that the class construct
+                    is central. All the details of the language fade away, but
+                    some key concepts are still there.
+                </p>
+                <p>
+                    Since only a few concepts are required, and in general LLMs
+                    enable you to develop in a language you are not familiar
+                    with, what if I try to go to the root language: Assembly. If
+                    the model can "compile" there, maybe we can squeeze more
+                    performance by targeting the lowest level directly.
+                </p>
+                <h2>An interesting side effect</h2>
+                <p>
+                    To see if we can gain a performance boost using Assembly, I
+                    asked Claude to create a series of simple functions in two
+                    different languages: Assembly and Python. Then I ran them
+                    and compared the results. Here is the
+                    <a
+                        target="_blank"
+                        href="https://github.com/francescobarbera/llms-as-non-deterministic-compilers"
+                    >
+                        repo</a
+                    >
+                    and here are the results:
+                </p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Example</th>
+                            <th>Assembly (ns)</th>
+                            <th>Python (ns)</th>
+                            <th>Speedup</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Sum two numbers</td>
+                            <td>247</td>
+                            <td>64</td>
+                            <td>0.3x</td>
+                        </tr>
+                        <tr>
+                            <td>Factorial(12)</td>
+                            <td>168</td>
+                            <td>276</td>
+                            <td><strong>1.6x</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Fibonacci(30)</td>
+                            <td>174</td>
+                            <td>588</td>
+                            <td><strong>3.4x</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Array sum (1000 elements)</td>
+                            <td>511</td>
+                            <td>13,171</td>
+                            <td><strong>25.8x</strong></td>
+                        </tr>
+                        <tr>
+                            <td>is_prime(999983)</td>
+                            <td>467</td>
+                            <td>21,527</td>
+                            <td><strong>46.1x</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>
+                    Except for the first function, sum two numbers, Assembly is
+                    faster than Python. That's the answer I expected. It is not
+                    a rigorous benchmark, but it is enough to see the shape of
+                    the tradeoff.
+                </p>
+                <h2>What I take from this</h2>
+                <p>
+                    Since we have our shiny new compilers, should we abandon
+                    high-level languages and start compiling directly to
+                    Assembly? I don't have an answer to that, but one of the
+                    good things about LLMs is that you can use them to remove
+                    abstraction and overcomplication by implementing only the
+                    needed functionality.
+                </p>
+                <p>
+                    Will I write an entire complex application in assembly in
+                    the future? Will I choose a specific language that fits the
+                    context? Exciting questions.
+                </p>
+            </section>
+        </main>
+        <footer>
+            <p><a href="index.html">Home</a></p>
+        </footer>
+    </body>
+</html>
