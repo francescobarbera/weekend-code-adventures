@@ -118,25 +118,41 @@
                     a rigorous benchmark, but it is enough to see the shape of
                     the tradeoff.
                 </p>
-                <h2>What I take from this</h2>
+                <h2>To native tools</h2>
                 <p>
                     Since we have our shiny new compilers, should we abandon
                     high-level languages and start compiling directly to
                     Assembly? I don't have an answer to that, but one of the
                     good things about LLMs is that you can use them to remove
                     abstraction and overcomplication by implementing only the
-                    needed functionality.
+                    needed functionality. Abstractions have hidden cost: they
+                    hide details to allow us to put all the information into our
+                    small context. In the future, with LLMs with a huge context
+                    window, we will be able to give them a lot of information
+                    without saturating the context.
+                </p>
+                <p>
+                    We have built many tools to allow us not to focus on the
+                    details, for example CloudFormation. It is a great tool
+                    because it allows you to not think about all the small
+                    details of each cloud platform. It gives you the opportunity
+                    to change the provider, and so on. But it has a cost in
+                    maintaining the code. It has bugs. It is another layer of
+                    distance between you and how code runs. With LLMs there is
+                    no difference in asking to write a Terraform, OpenTofu,
+                    CloudFormation or Azure Resource Manager script. If LLMs can
+                    generate low‑level scripts on demand, teams may choose fewer
+                    abstraction layers and accept more direct control.
                 </p>
                 <p>
                     Will I write an entire complex application in assembly in
-                    the future? Will I choose a specific language that fits the
-                    context? Exciting questions.
+                    the future? Will we use only native/low-abstraction tools?
+                    Exciting questions.
                 </p>
                 <hr />
                 <p>
-                    Thank you for taking the time to read this post. If you
-                    want to experiment with more complicated functions, here is
-                    the
+                    Thank you for taking the time to read this post. If you want
+                    to experiment with more complicated functions, here is the
                     <a
                         href="https://github.com/francescobarbera/llms-as-non-deterministic-compilers"
                         target="_blank"
