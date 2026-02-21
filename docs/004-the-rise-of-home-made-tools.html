@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>The rise of home-made tools</title>
+        <link rel="stylesheet" href="style.css" />
+        <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    </head>
+    <body>
+        <header>
+            <p>February 21, 2026</p>
+            <h1>The rise of home-made tools</h1>
+        </header>
+        <main>
+            <section class="content">
+                <h2>AI made it easy</h2>
+                <p>
+                    The time between imagining something (software in our case)
+                    and using a working version has been reduced by AI. It's not
+                    about creating a production-ready application in 10 minutes,
+                    that's still not possible, in my opinion. It's more about
+                    creating prototypes quickly.
+                </p>
+                <p>
+                    I recently changed my way of developing from bottom-up to
+                    top-down: I have an idea, I ask the LLM to implement
+                    something (giving it a strong guideline) and I test whether
+                    the functionality I created is really worth it. If so, I go
+                    deeper into the implementation details. Before LLMs, most of
+                    the work was creating building blocks and connecting them.
+                </p>
+                <h2>Kaizen!</h2>
+                <p>
+                    Every day is an opportunity to learn something. Every point
+                    of friction is an opportunity for improvement. I always
+                    struggled with how to efficiently manage my time. Now that I
+                    am a freelancer, I have to manage multiple small projects.
+                    Some customers use Jira, some others use different tools. I
+                    felt the need to use something of my own, something not
+                    shared with the customer, for example to handle personal
+                    tasks (like this blog).
+                </p>
+                <p>
+                    That is where Ambrogio came in. The name is commonly used to
+                    indicate a butler, at least in Italy, where an ad in the
+                    1980s popularized this name. I started Ambrogio as a simple
+                    bot that can read a large personal plain-text file I use to
+                    organise my life and store information (take a look at
+                    <a href="002-llms-and-one-big-text-file.html"
+                        >LLMs and one big text file</a
+                    >).
+                </p>
+                <p>
+                    I tried it for a couple of days and honestly, I found it was
+                    not so useful. I kept the functionality, and from time to
+                    time I still use it to look for specific information.
+                </p>
+                <p>
+                    Then I moved to something I already knew was useful: a
+                    pomodoro timer. I've been a fan of Francesco Cirillo's work
+                    for many years, but I always struggled with all the apps I
+                    have used: some were too chaotic, some too minimalistic. Why
+                    not implement something shaped around me now that I have
+                    these superpowers?
+                </p>
+                <h2>Pomodoro + task manager</h2>
+                <p>
+                    I became a fan of the command line. Using the keyboard a lot
+                    and the mouse less feels natural to me. I even miss
+                    smartphones with physical keyboards. I don't like tools with
+                    too many visual effects that can distract me. So, with my
+                    new friend Claude, I implemented a small CLI with a pomodoro
+                    timer inside Ambrogio.
+                </p>
+                <p>
+                    The natural continuation was to implement a task manager. I
+                    have different customers, so it made sense to add the
+                    concept of projects. And if you have tasks, sometimes you
+                    have to take notes, for example about what you have done and
+                    the difficulties you found.
+                </p>
+                <p>
+                    With my super-productive friend everything was quite smooth.
+                    The interesting part was that I didn't have to prioritise
+                    the design of the commands. I directly implemented them,
+                    used Ambrogio with the new features for a couple of hours
+                    and, if a feature was good, I refactored the code to fit my
+                    standards.
+                </p>
+                <h2>About the structure</h2>
+                <p>
+                    My last experience with plain text files was great, so I
+                    continue using them for keeping the tasks and the pomodoros.
+                    The interesting part is that I can simply open the text file
+                    if I want to fix a typo, or in general change something. I
+                    don't need complex features implemented. Here is an example:
+                </p>
+                <pre><code>
+## Personal
+- [ ] write a post about Ambrogio
+    - 📝 Ambrogio is the best tool I have ever used
+- [x] pay taxes
+    - 🍅 2026-02-19 15:09
+## Project 1
+- [ ] Awesome feature
+    - 🍅 2026-02-19 15:19
+    - 🍅 2026-02-19 16:03
+## Project 2
+- [ ] Not so awesome feature
+    - 🍅 2026-02-21 15:59
+    - 🍅 2026-02-21 16:28
+- [x] refactor the solution
+                </code></pre>
+                <h2>Having fun with it</h2>
+                <p>
+                    Building my own tool means I can do whatever I want, for
+                    example, why not make my office light blink at the end of a
+                    pomodoro? I built a hook I can use to trigger a behaviour
+                    and created a script to change my Philips Hue bulb color.
+                    That was it. It was fun and my daughters were surprised to
+                    see the light automagically change color without pressing a
+                    button.
+                </p>
+                <p>
+                    I did the same with Claude, precisely when it finishes a
+                    task. That was also a lot of fun.
+                </p>
+                <h2>Is it because of LLMs?</h2>
+                <p>
+                    In the end, working on Ambrogio has been interesting for two
+                    reasons: I can build a tool I use every day, and I can
+                    improve it quickly.
+                </p>
+                <p>
+                    Before, I was not doing this because of all the setup work:
+                    boilerplate, integrations, and constant context switching.
+                    Most of the core logic is simple, but the setup can drain
+                    your time and energy.
+                </p>
+                <p>
+                    This is where LLMs make a big difference for me: they reduce
+                    that friction, help me read docs faster, and connect
+                    concepts across tools. Modern stacks are now very complex,
+                    and this is the key point for me. So the real question is
+                    not if we should use LLMs, but how to reduce complexity so
+                    one person can still manage an entire system.
+                </p>
+                <hr />
+                <p>
+                    Thank you for taking the time to read this post. If you want
+                    to take a look at Ambrogio, here is the
+                    <a
+                        href="https://github.com/francescobarbera/ambrogio"
+                        target="_blank"
+                        >GitHub repository</a
+                    >.
+                </p>
+            </section>
+        </main>
+        <footer>
+            <p><a href="index.html">Home</a></p>
+        </footer>
+    </body>
+</html>
