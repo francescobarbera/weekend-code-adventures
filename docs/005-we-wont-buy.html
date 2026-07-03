@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>We Won't Buy: a fake shop for real shopping urges</title>
+        <link rel="stylesheet" href="style.css" />
+        <link rel="icon" href="favicon.ico" type="image/x-icon" />
+        <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "a68acdd36e1a46e0bff2f426e087e0ba"}'></script><!-- End Cloudflare Web Analytics -->
+    </head>
+    <body>
+        <header>
+            <p>July 3, 2026</p>
+            <h1>We Won't Buy: a fake shop for real shopping urges</h1>
+        </header>
+        <main>
+            <section class="content">
+                <h2>The cart ritual</h2>
+                <p>
+                    Sometimes the interesting part of online shopping is not the
+                    object. It is the sequence: browsing, comparing, imagining,
+                    adding to cart, hesitating, and finally closing the loop.
+                </p>
+                <p>
+                    That loop can be relaxing, but it can also be expensive. I
+                    had heard about websites, popular in South Korea for
+                    example, where you mimic the ritual while removing the part
+                    where a real package, a real payment, and a real return
+                    label appear. One of them is
+                    <a href="https://foodnevercomes.com/" target="_blank"
+                        >Food Never Comes</a
+                    >.
+                </p>
+                <p>
+                    So I built
+                    <a href="https://wewontbuy.com/" target="_blank"
+                        >We Won't Buy</a
+                    >: a fake fashion shop for real shopping urges.
+                </p>
+
+                <h2>Nothing ships</h2>
+                <p>
+                    The site looks like a shop, but every product is fictional.
+                    You can browse the catalog, add items to a cart, and complete
+                    an imaginary checkout. At the end, you get a receipt for the
+                    money not spent.
+                </p>
+                <p>
+                    The most important line in the whole interface is simple:
+                    real charge 0.
+                </p>
+                <p>
+                    I did not want it to feel like a lecture. The point is not
+                    to shame fashion or desire. The point is to give a small
+                    pause button to the moments when the urge is stronger than
+                    the need.
+                </p>
+
+                <h2>Local-first by design</h2>
+                <p>
+                    This project also gave me a useful constraint: no account, no
+                    cookies, and no backend. Cart state, fake receipts, and the
+                    money-not-spent total stay in local browser storage.
+                </p>
+                <p>
+                    Clearing site data clears everything. Opening the site in a
+                    private window starts fresh. That limitation is part of the
+                    product rather than something to hide.
+                </p>
+                <p>
+                    I like this kind of architecture for tiny personal tools. It
+                    is cheap to host, easy to reason about, and honest about
+                    what it can and cannot do.
+                </p>
+
+                <h2>Fictional products</h2>
+                <p>
+                    A no-buy simulator still needs tempting objects. If the
+                    catalog feels fake in the wrong way, the ritual breaks. So
+                    the project uses fictional product names, generated imagery,
+                    and a visual language close enough to e-commerce to make the
+                    flow recognizable.
+                </p>
+                <p>
+                    This was a fun design problem: make something attractive
+                    enough to browse, but clear enough that nobody thinks it is a
+                    real shop. The UI has to say "store" and "not a store" at
+                    the same time.
+                </p>
+                <p>
+                    The images were another small adventure. I first tried to
+                    generate them locally. I have a good graphics card, so I
+                    expected this part to be straightforward. It was not. The
+                    local models produced results, but they were too
+                    inconsistent for a catalog: strange garment shapes, awkward
+                    product framing, and too much manual babysitting.
+                </p>
+                <p>
+                    In the end I used an online LLM image-generation service for
+                    the product pictures. That was less romantic than running
+                    everything on my machine, but much more practical. The goal
+                    was not to prove that I could run the model locally; it was
+                    to create a believable fictional shop without spending the
+                    whole weekend fighting the image pipeline.
+                </p>
+
+                <h2>Giving the model a browser</h2>
+                <p>
+                    Another useful part of the workflow was connecting the model
+                    to the local page through Chrome DevTools. It changed the
+                    feedback loop. Instead of only describing a problem in text,
+                    I could let the model inspect the result of its own changes
+                    in the browser.
+                </p>
+                <p>
+                    That gave it an anchor on the actual interface: what was
+                    visible, what was broken, what moved after a resize, and
+                    whether the page still felt like a shop. It could also look
+                    at the DOM, the console, and the network panel, which made
+                    debugging much more concrete than copying errors back and
+                    forth.
+                </p>
+                <p>
+                    This is one of the places where AI assistance feels less
+                    like code generation and more like pairing. The model can
+                    propose a change, run the page, inspect the browser state,
+                    and then adjust from evidence instead of guessing.
+                </p>
+
+                <h2>The useful test</h2>
+                <p>
+                    The technical part was interesting, but honestly not the
+                    most complicated part of the project. A static website, some
+                    local storage, generated products, and a checkout flow are
+                    all manageable pieces.
+                </p>
+                <p>
+                    The harder part is understanding how to talk about it. Is it
+                    a fake fashion shop? A shopping simulator? A no-buy tool? A
+                    small harm-reduction experiment for impulse shopping? Each
+                    phrase attracts a slightly different audience and creates a
+                    different expectation.
+                </p>
+                <p>
+                    That is what I want to learn from the product now. Not just
+                    whether people can use it, but whether the positioning is
+                    clear enough for them to understand why it exists. The next
+                    adventure is less about code and more about marketing:
+                    finding the words, screenshots, and communities that make
+                    the idea click.
+                </p>
+
+                <hr />
+                <p>
+                    You can try it here:
+                    <a href="https://wewontbuy.com/" target="_blank"
+                        >wewontbuy.com</a
+                    >.
+                </p>
+            </section>
+        </main>
+        <footer>
+            <p><a href="index.html">Home</a></p>
+        </footer>
+    </body>
+</html>
