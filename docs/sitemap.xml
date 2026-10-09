@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://weekendcodeadventures.xyz/</loc>
+  </url>
+  <url>
+    <loc>https://weekendcodeadventures.xyz/001-better-runner.html</loc>
+    <lastmod>2024-10-10</lastmod>
+  </url>
+  <url>
+    <loc>https://weekendcodeadventures.xyz/002-llms-and-one-big-text-file.html</loc>
+    <lastmod>2026-01-26</lastmod>
+  </url>
+  <url>
+    <loc>https://weekendcodeadventures.xyz/003-llms-as-non-deterministic-compilers.html</loc>
+    <lastmod>2026-02-03</lastmod>
+  </url>
+  <url>
+    <loc>https://weekendcodeadventures.xyz/004-the-rise-of-home-made-tools.html</loc>
+    <lastmod>2026-02-21</lastmod>
+  </url>
+  <url>
+    <loc>https://weekendcodeadventures.xyz/005-we-wont-buy.html</loc>
+    <lastmod>2026-07-03</lastmod>
+  </url>
+  <url>
+    <loc>https://weekendcodeadventures.xyz/about-me.html</loc>
+  </url>
+</urlset>
