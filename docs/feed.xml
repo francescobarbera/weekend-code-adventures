@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Weekend Code Adventures</title>
+  <subtitle>Posts by Francesco Barbera</subtitle>
+  <link href="https://weekendcodeadventures.xyz/" />
+  <link rel="self" type="application/atom+xml" href="https://weekendcodeadventures.xyz/feed.xml" />
+  <id>https://weekendcodeadventures.xyz/</id>
+  <updated>2026-07-03T00:00:00Z</updated>
+  <author>
+    <name>Francesco Barbera</name>
+  </author>
+  <entry>
+    <title>We Won't Buy: a fake shop for real shopping urges</title>
+    <link href="https://weekendcodeadventures.xyz/005-we-wont-buy.html" />
+    <id>https://weekendcodeadventures.xyz/005-we-wont-buy.html</id>
+    <published>2026-07-03T00:00:00Z</published>
+    <updated>2026-07-03T00:00:00Z</updated>
+    <summary>We Won't Buy is a fake fashion shop for real shopping urges: browse, fill the cart, check out, and spend nothing.</summary>
+  </entry>
+  <entry>
+    <title>The rise of home-made tools</title>
+    <link href="https://weekendcodeadventures.xyz/004-the-rise-of-home-made-tools.html" />
+    <id>https://weekendcodeadventures.xyz/004-the-rise-of-home-made-tools.html</id>
+    <published>2026-02-21T00:00:00Z</published>
+    <updated>2026-02-21T00:00:00Z</updated>
+    <summary>AI shrinks the time from idea to working prototype. How I built my own Pomodoro and task manager, and why home-made tools are on the rise.</summary>
+  </entry>
+  <entry>
+    <title>LLMs as non-deterministic compilers</title>
+    <link href="https://weekendcodeadventures.xyz/003-llms-as-non-deterministic-compilers.html" />
+    <id>https://weekendcodeadventures.xyz/003-llms-as-non-deterministic-compilers.html</id>
+    <published>2026-02-03T00:00:00Z</published>
+    <updated>2026-02-03T00:00:00Z</updated>
+    <summary>What if LLMs are compilers from natural-language intent to code? An experiment generating Assembly and Python and comparing their performance.</summary>
+  </entry>
+  <entry>
+    <title>LLMs and one big text file</title>
+    <link href="https://weekendcodeadventures.xyz/002-llms-and-one-big-text-file.html" />
+    <id>https://weekendcodeadventures.xyz/002-llms-and-one-big-text-file.html</id>
+    <published>2026-01-26T00:00:00Z</published>
+    <updated>2026-01-26T00:00:00Z</updated>
+    <summary>Why I traded productivity apps for one big text file, and built Ambrogio, an LLM-powered CLI to ask questions about my schedule and tasks.</summary>
+  </entry>
+  <entry>
+    <title>Running with an engineer's precision</title>
+    <link href="https://weekendcodeadventures.xyz/001-better-runner.html" />
+    <id>https://weekendcodeadventures.xyz/001-better-runner.html</id>
+    <published>2024-10-10T00:00:00Z</published>
+    <updated>2024-10-10T00:00:00Z</updated>
+    <summary>How I built Better Runner, a small TypeScript tool that tracks my runs without a database, bringing an engineer's precision to running.</summary>
+  </entry>
+</feed>
