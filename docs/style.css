@@ -8,14 +8,14 @@ body {
 }
 h2,
 h3 {
-    color: #f76c6c;
+    color: #cf454b;
 }
 h1 {
     color: #fff;
     font-weight: bold;
 }
 header {
-    background-color: #f76c6c;
+    background-color: #cf454b;
     color: #fff;
     padding: 20px;
     text-align: center;
@@ -29,7 +29,6 @@ header {
     left: 20px;
     color: #fff;
     font-size: 0.7em;
-    opacity: 0.85;
 }
 header > h3 {
     color: #fff;
@@ -38,7 +37,7 @@ main {
     padding: 0 20px;
 }
 a {
-    color: #0077cc;
+    color: #0069b4;
     text-decoration: none;
 }
 a:hover {
@@ -72,7 +71,7 @@ footer {
 }
 hr {
     height: 3px;
-    background: #f76c6c;
+    background: #cf454b;
     border: 0;
     margin: 2em 0;
 }
@@ -128,7 +127,7 @@ li {
     font-weight: bold;
 }
 .author-box {
-    border-top: 3px solid #f76c6c;
+    border-top: 3px solid #cf454b;
     margin: 2em 0;
     padding-top: 0.5em;
     font-size: 0.9em;
