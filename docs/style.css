@@ -24,11 +24,23 @@ header {
     position: relative;
 }
 .back {
-    position: absolute;
-    top: 12px;
-    left: 20px;
+    display: table;
+    margin: 0 auto 20px 0;
+    padding: 4px 0;
     color: #fff;
-    font-size: 0.7em;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.2;
+    text-decoration: none;
+}
+.back:hover,
+.back:focus-visible {
+    color: #fff;
+    text-decoration: underline;
+}
+.back:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
 }
 header > h3 {
     color: #fff;
