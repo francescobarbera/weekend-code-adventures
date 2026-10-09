@@ -113,3 +113,20 @@ li {
         display: block;
     }
 }
+.site-nav {
+    padding: 10px 20px;
+    text-align: right;
+    font-size: 0.8em;
+}
+.site-nav a {
+    margin-left: 1em;
+}
+.cta {
+    font-weight: bold;
+}
+.author-box {
+    border-top: 3px solid #f76c6c;
+    margin: 2em 0;
+    padding-top: 0.5em;
+    font-size: 0.9em;
+}
