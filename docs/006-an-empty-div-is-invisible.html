@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>An empty div is invisible: prerendering a Vite SPA without SSR</title>
+        <link rel="stylesheet" href="style.css" />
+        <link rel="icon" href="favicon.ico" type="image/x-icon" />
+        <meta name="description" content="Why a client-side Vite SPA scored Lighthouse SEO 92 while crawlers got an empty div, and how a small build plugin prerendered it without SSR or new dependencies." />
+        <link rel="canonical" href="https://weekendcodeadventures.xyz/006-an-empty-div-is-invisible.html" />
+        <link rel="alternate" type="application/atom+xml" title="Weekend Code Adventures" href="/feed.xml" />
+        <meta property="og:type" content="article" />
+        <meta property="og:site_name" content="Weekend Code Adventures" />
+        <meta property="og:title" content="An empty div is invisible: prerendering a Vite SPA without SSR" />
+        <meta property="og:description" content="Why a client-side Vite SPA scored Lighthouse SEO 92 while crawlers got an empty div, and how a small build plugin prerendered it without SSR or new dependencies." />
+        <meta property="og:url" content="https://weekendcodeadventures.xyz/006-an-empty-div-is-invisible.html" />
+        <meta property="og:image" content="https://weekendcodeadventures.xyz/assets/wewontbuy-js-off-before-after.png" />
+        <meta property="og:image:width" content="2632" />
+        <meta property="og:image:height" content="880" />
+        <meta property="og:image:alt" content="wewontbuy.com with JavaScript off: blank page before, full shop after" />
+        <meta property="article:published_time" content="2026-10-09" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@barberaf84" />
+        <meta name="twitter:title" content="An empty div is invisible: prerendering a Vite SPA without SSR" />
+        <meta name="twitter:description" content="Why a client-side Vite SPA scored Lighthouse SEO 92 while crawlers got an empty div, and how a small build plugin prerendered it without SSR or new dependencies." />
+        <meta name="twitter:image" content="https://weekendcodeadventures.xyz/assets/wewontbuy-js-off-before-after.png" />
+        <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "a68acdd36e1a46e0bff2f426e087e0ba"}'></script><!-- End Cloudflare Web Analytics -->
+    </head>
+    <body>
+        <header>
+            <a class="back" href="index.html">&larr; Francesco Barbera</a>
+            <p>October 9, 2026</p>
+            <h1>An empty div is invisible: prerendering a Vite SPA without SSR</h1>
+        </header>
+        <main>
+            <section class="content">
+                <p>Until this fix, the body of We Won't Buy's <code>index.html</code> looked like this:</p>
+                <pre><code>&lt;body&gt;
+  &lt;div id=&quot;app&quot;&gt;&lt;/div&gt;
+  &lt;script type=&quot;module&quot; src=&quot;/src/main.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+</code></pre>
+                <p>Its Lighthouse SEO score was 92.</p>
+                <p>Both were true at the same time, and the score hid the problem. This post is about how that happened, the small build step that fixed it, and the first lesson in something I'm bad at: marketing.</p>
+                <h2>A blind spot of context</h2>
+                <p>I spent more than ten years as a software architect on large B2B platforms. On systems like those, search is not a requirement. Users arrive through contracts, logins and integrations, and nobody asks whether a crawler can read the dashboard.</p>
+                <p>So when I built <a href="https://wewontbuy.com/" target="_blank">We Won't Buy</a>, a fake fashion shop for real shopping urges, over a weekend, I shipped it the way I'd ship an internal app: a pure client-side Vite SPA, with everything rendered by JavaScript in the browser. Discoverability wasn't on the list. A blind spot of context, not of knowledge: once it was pointed out, the cause and the fix were obvious.</p>
+                <p>That blind spot is also why the project exists. With AI, building a small app takes a weekend. Getting people to find it, care about it and come back still doesn't, and it takes skills I never needed on B2B platforms: SEO, social networks, copywriting, positioning, analytics. In <a href="005-we-wont-buy.html">July</a> I wrote that the next adventure was less about code and more about marketing. We Won't Buy is my training ground, and this is lesson one: SEO.</p>
+                <h2>Why Lighthouse gave an empty page 92</h2>
+                <p>I ran Lighthouse locally against <code>vite preview</code> on the main branch. SEO: 92. Not bad, I thought.</p>
+                <p>The missing points were not about the empty div. The site had no <code>robots.txt</code>, so <code>/robots.txt</code> fell through to the SPA and returned the app's HTML. Lighthouse tried to read a web page as crawler rules and flagged it.</p>
+                <p>The empty div didn't cost a single point, and that's the part worth remembering. Lighthouse audits the page in Chrome, with JavaScript running. It saw the shop the way a visitor does: heading, copy, products. It couldn't see the problem, because the problem only exists for clients that don't run JavaScript.</p>
+                <p>There are more of those than I assumed. Googlebot renders JavaScript, though as a separate pass after the crawl, which can come with a delay. But a <a href="https://vercel.com/blog/the-rise-of-the-ai-crawler" target="_blank">December 2024 analysis by Vercel</a> found that none of the major AI crawlers, including GPTBot, ClaudeBot and PerplexityBot, execute it. Link previews only read the head, and mine was fine: the title, description and social image were static tags, so a shared link still got a preview card. But the card was all there was. Anything else that read the HTML found a shop with nothing in it. A bit ironic, for a shop where nothing ships.</p>
+                <p><img alt="wewontbuy.com with JavaScript off: blank page before, full shop after" src="assets/wewontbuy-js-off-before-after.png" width="2632" height="880" /></p>
+                <p><em>Same URL, JavaScript off. Before / after.</em></p>
+                <h2>A second pair of eyes</h2>
+                <p>Lighthouse didn't find the empty div. Grok Bot did: xAI's platform for building your own bots. I use mine as a fast second pair of eyes on the marketing side, and its audit of the site came back with the empty <code>&lt;div id="app"&gt;</code>.</p>
+                <p>It suggested rendering the first view directly in Node at build time, rather than adopting a server-side rendering framework or snapshotting the page with a headless browser, a real Chrome without a window that runs the app during the build and saves the result. With no backend and a plain Node build, rendering in Node was the clear pick. Then it covered the part I would have skipped: the marketing checklist around the fix. It wrote the briefs, its developer agent implemented them and opened the pull requests, and I reviewed and merged.</p>
+                <p>As I wrote in <a href="003-llms-as-non-deterministic-compilers.html">LLMs as non-deterministic compilers</a>, I don't write much code by hand anymore. The rules are the same whoever writes the code: a claim about the HTML can be checked against the HTML, a score can be rerun, and trade-offs should be written down. One PR did exactly that: it said FAQ rich results were unlikely for a site like this, and that its own translations deserved a native speaker's read.</p>
+                <h2>The fix: a build step, not a framework</h2>
+                <p>The app's markup is a pure function of its state. The render code lives in <code>src/view.js</code>, whose <code>renderAppHtml(state)</code> never touches the browser: <code>localStorage</code> and the visitor's language are read only when the client starts. So Node can import it, render the default first-visit state (English, empty cart, zero totals, the first 24 products) and write the result into the page.</p>
+                <p>That's a small Vite plugin, here slightly simplified:</p>
+                <pre><code>import { createDefaultState, renderAppHtml } from &quot;../src/view.js&quot;;
+
+const placeholder = '&lt;div id=&quot;app&quot;&gt;&lt;/div&gt;';
+
+export function prerenderApp() {
+  return {
+    name: &quot;prerender-app&quot;,
+    apply: &quot;build&quot;,
+    transformIndexHtml(html) {
+      const appHtml = renderAppHtml(createDefaultState());
+      return {
+        html: html.replace(placeholder, () =&gt; `&lt;div id=&quot;app&quot; data-prerendered&gt;${appHtml}&lt;/div&gt;`),
+        tags: [{
+          tag: &quot;script&quot;,
+          children: 'document.documentElement.classList.add(&quot;js&quot;);',
+          injectTo: &quot;head-prepend&quot;,
+        }],
+      };
+    },
+  };
+}
+</code></pre>
+                <p>The real file adds two guards: the build fails unless the placeholder appears exactly once, and unless the rendered markup has exactly one <code>&lt;h1&gt;</code>. Because <code>transformIndexHtml</code> runs for every HTML entry in the build, the campaign landing pages get the same treatment without a second list.</p>
+                <p>The built <code>index.html</code> now starts like this (trimmed):</p>
+                <pre><code>&lt;div id=&quot;app&quot; data-prerendered&gt;
+  &lt;header class=&quot;site-header&quot;&gt;…&lt;/header&gt;
+  &lt;main id=&quot;top&quot;&gt;
+    &lt;section class=&quot;hero&quot; aria-label=&quot;We Won't Buy&quot;&gt;
+      &lt;img src=&quot;/assets/hero-editorial-1800.webp&quot; … /&gt;
+      &lt;div class=&quot;hero-copy&quot;&gt;
+        &lt;p class=&quot;eyebrow&quot;&gt;A fashion shop where nothing ships&lt;/p&gt;
+        &lt;h1&gt;Browse the feeling. Keep the money.&lt;/h1&gt;
+        &lt;p&gt;Build a cart, use imaginary money, and close the loop without a delivery, a return label, or a real charge.&lt;/p&gt;
+        …
+</code></pre>
+                <p>The second half of the plugin is the interesting trade-off. The prerendered markup is the English default, but a returning visitor may have picked Italian or left items in the cart. Showing the English page and then swapping it would flash the wrong content. So a one-line script in the head adds a <code>js</code> class to <code>&lt;html&gt;</code> before the body is parsed, and one CSS rule hides <code>#app[data-prerendered]</code> under it. Visitors with JavaScript never see the prerendered markup: the client renders their own language and state, then removes the attribute. Crawlers and no-JS visitors get the full first view.</p>
+                <p>The cost is written down in the decision record. Prerendering doesn't make the first paint faster for JavaScript visitors, and if the app bundle fails to load, they still see an empty page, exactly as before. For a site whose problem was being readable at all, that's a fair trade.</p>
+                <p>No SSR framework, no headless browser, and <code>package.json</code> didn't gain a dependency.</p>
+                <h2>The marketing checklist</h2>
+                <p>The rest was plumbing, the kind a marketer would have started with. A <code>robots.txt</code> that allows everything and points to a <code>sitemap.xml</code> listing only the root. A <code>WebApplication</code> JSON-LD block with a free <code>Offer</code>, and no rating, because there isn't a real one. The campaign landing pages (<code>/go/receipt/</code>, <code>/go/ritual/</code>, <code>/go/privacy/</code>) exist so analytics can tell which message brought a visit. They serve the same body as the home page, so their canonical URL now points at the root, while <code>og:url</code> keeps the campaign path for shared links.</p>
+                <p>Then the words: a new title, "We Won't Buy: A No-Buy Shopping Simulator for Impulse Urges", a new description, and an eight-question FAQ in the site's five languages, with a <code>FAQPage</code> JSON-LD block mirroring the English answers. Rich results weren't the goal: in 2023 Google limited FAQ rich results to well-known government and health sites. The point is plain, crawlable text.</p>
+                <p>One honest limit: the five languages share one URL, so a crawler sees the English page. For now the translations help visitors, not search. Separate URLs per language, with <code>hreflang</code>, are a lesson for another day.</p>
+                <h2>Tests and results</h2>
+                <p>Playwright loads every entry with JavaScript disabled and checks the single <code>&lt;h1&gt;</code>, the hero copy and the first batch of products. Another test blocks the app bundle and checks that the prerendered markup stays hidden: the trade-off above, pinned down. The last group checks that the client really takes over on every entry. Playwright drives a headless browser, so there is one after all, but at test time, checking the build rather than producing it.</p>
+                <p>The result: Lighthouse SEO 100 on <code>/</code> and <code>/go/receipt/</code>, measured locally with <code>vite preview</code>. A local measurement, not a ranking. Whether search engines and AI crawlers actually pick the page up takes weeks to show, so I'll come back with Search Console numbers in a later lesson.</p>
+                <h2>What I took from it</h2>
+                <p>Context sets the requirements, and the requirements decide what you look at. On a B2B platform nobody asks what a crawler sees; on a public side project, it's one of the first questions. Next time discoverability goes on the list on day one.</p>
+                <p>A green score is not the same as being visible. Lighthouse runs JavaScript, so it audits what visitors see, not what every crawler gets. The cheapest check is the raw one: <code>curl</code> your homepage and read what comes back.</p>
+                <p>When the markup is a pure function of state, prerendering is a small build plugin, not a new framework.</p>
+                <p>And a fast second pair of eyes from outside your usual area is worth having, as long as the usual rules still apply: look at the raw output, ask for the trade-offs, read the diff.</p>
+                <hr />
+                <p>Thank you for taking the time to read this post. You can try the shop at <a href="https://wewontbuy.com/" target="_blank">wewontbuy.com</a>.</p>
+                <aside class="author-box">
+                    <p>
+                        I'm a software architect and full-stack developer from
+                        Italy, focused on AI and cloud. I've spent over a decade
+                        building large-scale platforms, and since 2026 I've
+                        worked as a freelancer.
+                    </p>
+                    <p>
+                        Have a product to build?
+                        <a href="mailto:francesco@barbera.me"
+                            >francesco@barbera.me</a
+                        >
+                    </p>
+                </aside>
+            </section>
+        </main>
+        <footer>
+            <p><a href="index.html">Home</a></p>
+        </footer>
+    </body>
+</html>
